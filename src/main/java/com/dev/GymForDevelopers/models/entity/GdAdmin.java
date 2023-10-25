@@ -18,7 +18,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class Admin {
+public class GdAdmin {
     @Id
     @GeneratedValue(generator = "UUID")
     private UUID id;

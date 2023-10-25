@@ -1,7 +1,8 @@
 package com.dev.GymForDevelopers.controllers;
 
-import com.dev.GymForDevelopers.models.DTO.AdminDTO;
-import com.dev.GymForDevelopers.services.AdminService;
+import com.dev.GymForDevelopers.models.DTO.GdAdminDTO;
+import com.dev.GymForDevelopers.services.GdAdminService;
+import com.dev.GymForDevelopers.converters.GdConverterAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,17 +12,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/admin")
-public class AdminController {
-    private final AdminService adminService;
+public class GdAdminController {
+    private final GdAdminService adminService;
+    private final GdConverterAdmin gdConverterAdmin;
 
     @Autowired
-    public AdminController(AdminService adminService) {
+    public GdAdminController(GdAdminService adminService, GdConverterAdmin gdConverterAdmin) {
         this.adminService = adminService;
+        this.gdConverterAdmin = gdConverterAdmin;
     }
 
     @PostMapping("/create")
-    public ResponseEntity<String> create(@RequestBody AdminDTO adminDTO) {
-        adminService.save(adminDTO);
+    public ResponseEntity<String> create(@RequestBody GdAdminDTO adminDTO) {
+        adminService.save(gdConverterAdmin.convertToEntity(adminDTO));
         return ResponseEntity.ok("Админ успешно создан");
     }
 }
