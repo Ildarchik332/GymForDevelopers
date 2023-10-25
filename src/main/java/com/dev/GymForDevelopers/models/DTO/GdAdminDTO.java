@@ -6,7 +6,7 @@ import lombok.Data;
 import java.time.LocalDate;
 @Data
 @Builder(toBuilder = true)
-public class AdminDTO {
+public class GdAdminDTO {
     private String name;
 
     private Integer age;
