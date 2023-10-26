@@ -1,9 +1,12 @@
 package com.dev.GymForDevelopers.services;
 
+import com.dev.GymForDevelopers.exceptions.GdNotFoundException;
 import com.dev.GymForDevelopers.models.entity.GdPerson;
 import com.dev.GymForDevelopers.repositories.GdPersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 /**
  * Сервис для работы с пользоваетлем
@@ -37,7 +40,11 @@ public class GdPersonService {
                     .country(Person.getCountry())
                     .build()
     );
-
-
     }
+
+    public GdPerson findOne(long id){
+        Optional<GdPerson> findPerson = gdPersonRepository.findById(id);
+        return findPerson.orElseThrow(GdNotFoundException::new);
+    }
+
 }

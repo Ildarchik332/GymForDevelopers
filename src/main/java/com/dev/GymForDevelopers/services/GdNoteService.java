@@ -1,13 +1,13 @@
 package com.dev.GymForDevelopers.services;
 
-import com.dev.GymForDevelopers.models.DTO.GdNoteDTO;
+import com.dev.GymForDevelopers.exceptions.GdNotFoundException;
 import com.dev.GymForDevelopers.models.entity.GdNote;
 import com.dev.GymForDevelopers.repositories.GdNoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Calendar;
+import java.util.Optional;
 
 /**
  * Сервис для работы с заметками
@@ -41,5 +41,10 @@ public class GdNoteService {
                         .whoCreated(note.getWhoCreated())
                         .build()
         );
+    }
+
+    public GdNote findOne(int id){
+        Optional<GdNote> findNote = gdNoteRepository.findById(id);
+        return findNote.orElseThrow(GdNotFoundException::new);
     }
 }

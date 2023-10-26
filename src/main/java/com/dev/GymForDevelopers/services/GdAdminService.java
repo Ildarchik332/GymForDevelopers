@@ -1,10 +1,12 @@
 package com.dev.GymForDevelopers.services;
 
-import com.dev.GymForDevelopers.models.DTO.GdAdminDTO;
+import com.dev.GymForDevelopers.exceptions.GdNotFoundException;
 import com.dev.GymForDevelopers.models.entity.GdAdmin;
 import com.dev.GymForDevelopers.repositories.GdAdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 /**
  * Сервис для работы с администратором
@@ -26,9 +28,14 @@ public class GdAdminService {
      * @param admin Данные администратора
      */
     public void save(GdAdmin admin) {
-        if (admin == null) {
+        if (admin.getName() == null) {
             throw new RuntimeException("В качестве параметра был передан null");
         }
+
+     //  if (admin == null) {
+     //      throw new GdRuntimeException();
+     //  }
+
         adminRepository.save(
                 GdAdmin.builder()
                         .name(admin.getName())
@@ -37,5 +44,14 @@ public class GdAdminService {
                         .email(admin.getEmail())
                         .phoneNumber(admin.getPhoneNumber())
                         .build());
+    }
+
+    public GdAdmin findByName(String name){
+        Optional<GdAdmin> foundAdmin = adminRepository.findByName(name);
+
+        return foundAdmin.orElseThrow(GdNotFoundException::new);
+
+      // return adminRepository.findByName(name);
+      //  return foundPerson.orElse(null);
     }
 }
