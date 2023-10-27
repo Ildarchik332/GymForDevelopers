@@ -30,17 +30,10 @@ public class GdPersonController {
 
         return ResponseEntity.ok("Пользователь успешно создан");
     }
+
     @GetMapping("/{id}")
-    public GdPerson getPerson(@PathVariable("id") long id){
+    public GdPerson getPerson(@PathVariable("id") long id) {
         return gdPersonService.findOne(id);
     }
 
-    @ExceptionHandler
-    private ResponseEntity<ErrorsResponse> HandlerException(GdNotFoundException e){
-        ErrorsResponse response = new ErrorsResponse(
-                ExceptionConst.ERRORS_CODE_NF,
-                ExceptionConst.MESSAGE_NF
-        );
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-    }
-    }
+}

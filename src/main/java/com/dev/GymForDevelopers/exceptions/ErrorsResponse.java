@@ -7,13 +7,11 @@ import lombok.Data;
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @Data
-public class ErrorsResponse implements ExceptionConst {
+public class ErrorsResponse {
 
         String errors;
         String message;
 
-    // private String errorsCode;
-    // private String message;
 
 
 }

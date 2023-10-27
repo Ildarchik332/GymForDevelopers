@@ -1,6 +1,9 @@
 package com.dev.GymForDevelopers.services;
 
+import com.dev.GymForDevelopers.exceptions.ErrorsResponse;
+import com.dev.GymForDevelopers.exceptions.ExceptionConst;
 import com.dev.GymForDevelopers.exceptions.GdNotFoundException;
+import com.dev.GymForDevelopers.exceptions.GdRuntimeException;
 import com.dev.GymForDevelopers.models.entity.GdAdmin;
 import com.dev.GymForDevelopers.repositories.GdAdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +31,10 @@ public class GdAdminService {
      * @param admin Данные администратора
      */
     public void save(GdAdmin admin) {
-        if (admin.getName() == null) {
-            throw new RuntimeException("В качестве параметра был передан null");
-        }
 
-     //  if (admin == null) {
-     //      throw new GdRuntimeException();
-     //  }
+        if (admin == null) {
+            throw new GdRuntimeException(ExceptionConst.MESSAGE_RT, ExceptionConst.ERRORS_CODE_RT);
+        }
 
         adminRepository.save(
                 GdAdmin.builder()
@@ -46,12 +46,10 @@ public class GdAdminService {
                         .build());
     }
 
-    public GdAdmin findByName(String name){
-        Optional<GdAdmin> foundAdmin = adminRepository.findByName(name);
-
-        return foundAdmin.orElseThrow(GdNotFoundException::new);
-
-      // return adminRepository.findByName(name);
-      //  return foundPerson.orElse(null);
+    public GdAdmin findByName(String name) {
+        return adminRepository.findByName(name)
+                .orElseThrow(() -> {
+                    throw new GdNotFoundException(ExceptionConst.MESSAGE_NF, ExceptionConst.ERRORS_CODE_NF);
+                });
     }
 }

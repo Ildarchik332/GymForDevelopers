@@ -36,21 +36,5 @@ public class GdAdminController {
         return adminService.findByName(name);
     }
 
-//  @ExceptionHandler
-//  private ResponseEntity<ErrorsResponse> handleException(GdRuntimeException e){
-//          ErrorsResponse response = new ErrorsResponse(
-//                  "NULL_CANNOT_BE_PASSED_AS_A_PARAMETER",
-//                  "В качестве параметра был передан null"
-//          );
-//      return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-//  }
 
-    @ExceptionHandler
-    private ResponseEntity<ErrorsResponse> handleException(GdNotFoundException e){
-       ErrorsResponse response = new ErrorsResponse(
-               ExceptionConst.ERRORS_CODE_NF,
-               ExceptionConst.MESSAGE_NF
-       );
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-    }
 }

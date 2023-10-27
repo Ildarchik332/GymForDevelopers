@@ -26,25 +26,15 @@ public class GdNoteController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<String> create(@RequestBody GdNoteDTO noteDTO){
+    public ResponseEntity<String> create(@RequestBody GdNoteDTO noteDTO) {
         gdNoteService.save(gdConverterNote.convertToEntity(noteDTO));
         return ResponseEntity.ok("Заметка успешно создана");
     }
 
     @GetMapping("/{id}")
-    public GdNote getNote(@PathVariable ("id") int id){
+    public GdNote getNote(@PathVariable("id") int id) {
         return gdNoteService.findOne(id);
     }
-
-    @ExceptionHandler
-    private ResponseEntity<ErrorsResponse> HandlerException(GdNotFoundException e){
-        ErrorsResponse response = new ErrorsResponse(
-                ExceptionConst.ERRORS_CODE_NF,
-                ExceptionConst.MESSAGE_NF
-        );
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-    }
-
 
 
 }

@@ -1,17 +1,19 @@
 package com.dev.GymForDevelopers.util;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
+@Getter
 public enum QuestionSections {
-    HIBERNATE, SPRING, JAVA, SQL, PATTERNS;
+    HIBERNATE(1, "Hibernate section", "Основные вопросы про Hibernate"),
+    SPRING(2, "Spring section", "Вопросы и нюансы про Spring в целом"),
+    JAVA(3, "Java section", "Тонкости языка программирования Java"),
+    SQL(4, "SQL section", "Раздел вопросов про SQL"),
+    PATTERNS(5, "Patterns section", "Раздел вопросов про Patterns");
 
-    private Integer code;
-    private String  title;
-    private String description;
+    private final Integer code;
+    private final String title;
+    private final String description;
 
-    QuestionSections(){}
-
-    QuestionSections(Integer code, String title, String description) {
-        this.code = code;
-        this.title = title;
-        this.description = description;
-    }
 }

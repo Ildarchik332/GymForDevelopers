@@ -1,6 +1,8 @@
 package com.dev.GymForDevelopers.services;
 
+import com.dev.GymForDevelopers.exceptions.ExceptionConst;
 import com.dev.GymForDevelopers.exceptions.GdNotFoundException;
+import com.dev.GymForDevelopers.exceptions.GdRuntimeException;
 import com.dev.GymForDevelopers.models.entity.GdNote;
 import com.dev.GymForDevelopers.repositories.GdNoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +33,7 @@ public class GdNoteService {
      */
     public void save(GdNote note) {
         if (note == null) {
-            throw new RuntimeException("В качестве параметра был передан null");
+            throw new GdRuntimeException(ExceptionConst.MESSAGE_RT, ExceptionConst.ERRORS_CODE_RT);
         }
         gdNoteRepository.save(
                 GdNote.builder()
@@ -43,8 +45,10 @@ public class GdNoteService {
         );
     }
 
-    public GdNote findOne(int id){
-        Optional<GdNote> findNote = gdNoteRepository.findById(id);
-        return findNote.orElseThrow(GdNotFoundException::new);
+    public GdNote findOne(int id) {
+        return gdNoteRepository.findById(id)
+                .orElseThrow(() -> {
+                    throw new GdNotFoundException(ExceptionConst.MESSAGE_NF, ExceptionConst.ERRORS_CODE_NF);
+                });
     }
 }
