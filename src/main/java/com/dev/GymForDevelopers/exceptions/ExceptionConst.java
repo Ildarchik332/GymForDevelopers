@@ -6,6 +6,4 @@ public interface ExceptionConst {
 
     String ERRORS_CODE_RT = "NULL_PARAMETER";
     String MESSAGE_RT = "В качестве параметра был передан null";
-
-
 }

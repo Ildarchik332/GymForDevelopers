@@ -11,5 +11,4 @@ public class GdNotFoundException extends RuntimeException {
         super(message);
         this.code = code;
     }
-
 }

@@ -34,5 +34,4 @@ public class GdAdmin {
     private String email;
 
 
-
 }

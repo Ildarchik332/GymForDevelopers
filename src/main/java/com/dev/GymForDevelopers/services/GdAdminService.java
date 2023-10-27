@@ -1,6 +1,5 @@
 package com.dev.GymForDevelopers.services;
 
-import com.dev.GymForDevelopers.exceptions.ErrorsResponse;
 import com.dev.GymForDevelopers.exceptions.ExceptionConst;
 import com.dev.GymForDevelopers.exceptions.GdNotFoundException;
 import com.dev.GymForDevelopers.exceptions.GdRuntimeException;
@@ -8,8 +7,6 @@ import com.dev.GymForDevelopers.models.entity.GdAdmin;
 import com.dev.GymForDevelopers.repositories.GdAdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 /**
  * Сервис для работы с администратором

@@ -1,14 +1,10 @@
 package com.dev.GymForDevelopers.controllers;
 
 import com.dev.GymForDevelopers.converters.GdConverterPerson;
-import com.dev.GymForDevelopers.exceptions.ErrorsResponse;
-import com.dev.GymForDevelopers.exceptions.ExceptionConst;
-import com.dev.GymForDevelopers.exceptions.GdNotFoundException;
 import com.dev.GymForDevelopers.models.DTO.GdPersonDTO;
 import com.dev.GymForDevelopers.models.entity.GdPerson;
 import com.dev.GymForDevelopers.services.GdPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

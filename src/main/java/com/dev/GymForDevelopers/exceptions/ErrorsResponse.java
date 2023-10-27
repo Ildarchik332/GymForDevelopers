@@ -8,10 +8,6 @@ import lombok.Data;
 @AllArgsConstructor
 @Data
 public class ErrorsResponse {
-
-        String errors;
-        String message;
-
-
-
+    String errors;
+    String message;
 }
