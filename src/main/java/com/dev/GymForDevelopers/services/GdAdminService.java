@@ -43,6 +43,11 @@ public class GdAdminService {
                         .build());
     }
 
+    /**
+     * Метод для поиска админа по имени
+     *
+     * @param name
+     */
     public GdAdmin findByName(String name) {
         return adminRepository.findByName(name)
                 .orElseThrow(() -> {

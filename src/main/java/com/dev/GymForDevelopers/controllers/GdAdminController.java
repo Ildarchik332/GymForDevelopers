@@ -26,9 +26,8 @@ public class GdAdminController {
         return ResponseEntity.ok("Админ успешно создан");
     }
 
-
     @GetMapping("/{name}")
-    public GdAdmin getAdmin(@PathVariable ("name") String name){
+    public GdAdmin getAdmin(@PathVariable("name") String name) {
         return adminService.findByName(name);
     }
 
