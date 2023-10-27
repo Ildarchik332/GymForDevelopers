@@ -16,6 +16,7 @@ public class GdConverterAdmin {
      */
     public GdAdmin convertToEntity(GdAdminDTO dto){
         return GdAdmin.builder()
+                .name(dto.getName())
                 .age(dto.getAge())
                 .birthDate(dto.getBirthDate())
                 .email(dto.getEmail())

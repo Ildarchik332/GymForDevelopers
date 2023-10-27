@@ -1,9 +1,14 @@
 package com.dev.GymForDevelopers.services;
 
+import com.dev.GymForDevelopers.exceptions.ExceptionConst;
+import com.dev.GymForDevelopers.exceptions.GdNotFoundException;
+import com.dev.GymForDevelopers.exceptions.GdRuntimeException;
 import com.dev.GymForDevelopers.models.entity.GdPerson;
 import com.dev.GymForDevelopers.repositories.GdPersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 /**
  * Сервис для работы с пользоваетлем
@@ -25,19 +30,25 @@ public class GdPersonService {
      * @param Person Данные пользователя
      */
     public void save(GdPerson Person) {
-        if(Person == null){
-            throw  new RuntimeException("В качестве парметра был передан null");
+        if (Person == null) {
+            throw new GdRuntimeException(ExceptionConst.MESSAGE_RT, ExceptionConst.ERRORS_CODE_RT);
         }
-    gdPersonRepository.save(
-            GdPerson.builder()
-                    .name(Person.getName())
-                    .age(Person.getAge())
-                    .email(Person.getEmail())
-                    .birthDate(Person.getBirthDate())
-                    .country(Person.getCountry())
-                    .build()
-    );
-
-
+        gdPersonRepository.save(
+                GdPerson.builder()
+                        .name(Person.getName())
+                        .age(Person.getAge())
+                        .email(Person.getEmail())
+                        .birthDate(Person.getBirthDate())
+                        .country(Person.getCountry())
+                        .build()
+        );
     }
+
+    public GdPerson findOne(long id) {
+        return gdPersonRepository.findById(id)
+                .orElseThrow(() -> {
+                    throw new GdNotFoundException(ExceptionConst.MESSAGE_NF, ExceptionConst.ERRORS_CODE_NF);
+                });
+    }
+
 }
