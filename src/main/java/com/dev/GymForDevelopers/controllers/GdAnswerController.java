@@ -2,11 +2,13 @@ package com.dev.GymForDevelopers.controllers;
 
 import com.dev.GymForDevelopers.converters.GdConvertAnswer;
 import com.dev.GymForDevelopers.models.DTO.GdAnswerDTO;
-import com.dev.GymForDevelopers.models.entity.GdAnswer;
 import com.dev.GymForDevelopers.services.GdAnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/answer")

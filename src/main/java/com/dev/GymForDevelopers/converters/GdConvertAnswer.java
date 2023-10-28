@@ -16,6 +16,8 @@ public class GdConvertAnswer {
     public GdAnswer convertToEntity(GdAnswerDTO dto) {
         return GdAnswer.builder()
                 .response(dto.getResponse())
+                .question(dto.getQuestion())
+                .whoAnswered(dto.getWhoAnswered())
                 .build();
     }
     /**
@@ -24,6 +26,8 @@ public class GdConvertAnswer {
     public GdAnswerDTO convertToDto(GdAnswer answer) {
         return GdAnswerDTO.builder()
                 .response(answer.getResponse())
+                .question(answer.getQuestion())
+                .whoAnswered(answer.getWhoAnswered())
                 .build();
     }
 

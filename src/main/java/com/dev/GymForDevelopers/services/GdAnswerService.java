@@ -34,6 +34,8 @@ public class GdAnswerService {
         gdAnswerRepository.save(
                 GdAnswer.builder()
                         .response(answer.getResponse())
+                        .question(answer.getQuestion())
+                        .whoAnswered(answer.getWhoAnswered())
                         .build()
         );
     }

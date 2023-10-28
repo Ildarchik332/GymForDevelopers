@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "question")
@@ -22,5 +23,8 @@ public class GdQuestion {
     private String section;
 
     private String whoAsked;
+
+    @OneToOne(mappedBy = "question")
+    private GdAnswer answer;
 
 }

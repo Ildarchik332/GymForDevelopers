@@ -1,5 +1,6 @@
 package com.dev.GymForDevelopers.models.DTO;
 
+import com.dev.GymForDevelopers.models.entity.GdQuestion;
 import lombok.Builder;
 import lombok.Data;
 
@@ -7,4 +8,8 @@ import lombok.Data;
 @Builder(toBuilder = true)
 public class GdAnswerDTO {
     private String response;
+
+    private GdQuestion question;
+
+    private String whoAnswered;
 }
