@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class GdAnswer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @OneToOne
     @JoinColumn(name = "question_id", referencedColumnName = "id")
