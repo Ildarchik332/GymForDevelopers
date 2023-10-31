@@ -7,6 +7,8 @@ import lombok.Data;
 @Data
 @Builder(toBuilder = true)
 public class GdAnswerDTO {
+    private Long questionId;
+
     private String response;
 
     private GdQuestion question;

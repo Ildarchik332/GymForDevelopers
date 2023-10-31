@@ -1,10 +1,14 @@
 package com.dev.GymForDevelopers.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Table(name = "question")
@@ -23,7 +27,7 @@ public class GdQuestion {
 
     private String whoAsked;
 
-    @OneToOne(mappedBy = "question")
-    private GdAnswer answer;
+    @OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
+    private List<GdAnswer> answer;
 
 }

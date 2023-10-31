@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  * @author Ildar
  */
 @Service
-public class GdConverterAdmin {
+public class GdAdminConverter {
     /**
      * Из DTO в Entity
      */

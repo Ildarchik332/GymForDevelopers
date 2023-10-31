@@ -1,5 +1,7 @@
 package com.dev.GymForDevelopers.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,12 +19,12 @@ public class GdAnswer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "question_id", referencedColumnName = "id")
-    private GdQuestion question;
-
     private String response;
 
     private String whoAnswered;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "question_id", referencedColumnName = "id")
+    private GdQuestion question;
 
 }

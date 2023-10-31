@@ -1,6 +1,6 @@
 package com.dev.GymForDevelopers.controllers;
 
-import com.dev.GymForDevelopers.converters.GdConverterNote;
+import com.dev.GymForDevelopers.converters.GdNoteConverter;
 import com.dev.GymForDevelopers.models.DTO.GdNoteDTO;
 import com.dev.GymForDevelopers.models.entity.GdNote;
 import com.dev.GymForDevelopers.services.GdNoteService;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.*;
 public class GdNoteController {
 
     private final GdNoteService gdNoteService;
-    private final GdConverterNote gdConverterNote;
+    private final GdNoteConverter gdConverterNote;
 
     @Autowired
-    public GdNoteController(GdNoteService gdNoteService, GdConverterNote gdConverterNote) {
+    public GdNoteController(GdNoteService gdNoteService, GdNoteConverter gdConverterNote) {
         this.gdNoteService = gdNoteService;
         this.gdConverterNote = gdConverterNote;
     }

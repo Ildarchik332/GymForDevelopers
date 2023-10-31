@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
  * @author Ildar
  */
 @Service
-public class GdConvertAnswer {
+public class GdAnswerConverter {
     /**
      * Из DTO в Entity
      */
