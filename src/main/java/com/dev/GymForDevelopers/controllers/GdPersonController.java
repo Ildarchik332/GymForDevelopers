@@ -28,7 +28,7 @@ public class GdPersonController {
     }
 
     @GetMapping("/{id}")
-    public GdPerson getPerson(@PathVariable("id") long id) {
+    public GdPerson getPerson(@PathVariable("id") Long id) {
         return gdPersonService.findOne(id);
     }
 
