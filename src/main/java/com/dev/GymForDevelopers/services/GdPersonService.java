@@ -42,6 +42,10 @@ public class GdPersonService {
         );
     }
 
+    /**
+     * Метод для поиска пользователя по id
+     * @param id
+     */
     public GdPerson findOne(long id) {
         return gdPersonRepository.findById(id)
                 .orElseThrow(() -> {

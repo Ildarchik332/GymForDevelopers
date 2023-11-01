@@ -1,6 +1,6 @@
 package com.dev.GymForDevelopers.controllers;
 
-import com.dev.GymForDevelopers.converters.GdConverterPerson;
+import com.dev.GymForDevelopers.converters.GdPersonConverter;
 import com.dev.GymForDevelopers.models.DTO.GdPersonDTO;
 import com.dev.GymForDevelopers.models.entity.GdPerson;
 import com.dev.GymForDevelopers.services.GdPersonService;
@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/people")
 public class GdPersonController {
     private final GdPersonService gdPersonService;
-    private final GdConverterPerson gdConverterPerson;
+    private final GdPersonConverter gdPersonConverter;
 
     @Autowired
-    public GdPersonController(GdPersonService gdPersonService, GdConverterPerson gdConverterPerson) {
+    public GdPersonController(GdPersonService gdPersonService, GdPersonConverter gdPersonConverter) {
         this.gdPersonService = gdPersonService;
-        this.gdConverterPerson = gdConverterPerson;
+        this.gdPersonConverter = gdPersonConverter;
     }
 
     @PostMapping("/create")
     public ResponseEntity<String> create(@RequestBody GdPersonDTO personDTO) {
-        gdPersonService.save(gdConverterPerson.convertToEntity(personDTO));
+        gdPersonService.save(gdPersonConverter.convertToEntity(personDTO));
 
         return ResponseEntity.ok("Пользователь успешно создан");
     }

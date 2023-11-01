@@ -44,6 +44,10 @@ public class GdNoteService {
         );
     }
 
+    /**
+     * Метод для поиска заметки по id
+     * @param id
+     */
     public GdNote findOne(int id) {
         return gdNoteRepository.findById(id)
                 .orElseThrow(() -> {
