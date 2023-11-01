@@ -34,18 +34,12 @@ public class GdNoteService {
         if (note == null) {
             throw new GdRuntimeException(ExceptionConst.MESSAGE_RT, ExceptionConst.ERRORS_CODE_RT);
         }
-        gdNoteRepository.save(
-                GdNote.builder()
-                        .section(note.getSection())
-                        .advice(note.getAdvice())
-                        .dateOfCreation(LocalDate.now())
-                        .whoCreated(note.getWhoCreated())
-                        .build()
-        );
+        gdNoteRepository.save(note);
     }
 
     /**
      * Метод для поиска заметки по id
+     *
      * @param id
      */
     public GdNote findOne(int id) {

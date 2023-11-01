@@ -25,25 +25,18 @@ public class GdPersonService {
     /**
      * Метод для создания пользователя
      *
-     * @param Person Данные пользователя
+     * @param person Данные пользователя
      */
-    public void save(GdPerson Person) {
-        if (Person == null) {
+    public void save(GdPerson person) {
+        if (person == null) {
             throw new GdRuntimeException(ExceptionConst.MESSAGE_RT, ExceptionConst.ERRORS_CODE_RT);
         }
-        gdPersonRepository.save(
-                GdPerson.builder()
-                        .name(Person.getName())
-                        .age(Person.getAge())
-                        .email(Person.getEmail())
-                        .birthDate(Person.getBirthDate())
-                        .country(Person.getCountry())
-                        .build()
-        );
+        gdPersonRepository.save(person);
     }
 
     /**
      * Метод для поиска пользователя по id
+     *
      * @param id
      */
     public GdPerson findOne(long id) {

@@ -30,11 +30,6 @@ public class GdQuestionService {
         if (question == null) {
             throw new GdRuntimeException(ExceptionConst.MESSAGE_RT, ExceptionConst.ERRORS_CODE_RT);
         }
-        questionRepository.save(GdQuestion.builder()
-                .issue(question.getIssue())
-                .section(question.getSection())
-                .whoAsked(question.getWhoAsked())
-                .build()
-        );
+        questionRepository.save(question);
     }
 }

@@ -33,14 +33,7 @@ public class GdAdminService {
             throw new GdRuntimeException(ExceptionConst.MESSAGE_RT, ExceptionConst.ERRORS_CODE_RT);
         }
 
-        adminRepository.save(
-                GdAdmin.builder()
-                        .name(admin.getName())
-                        .age(admin.getAge())
-                        .birthDate(admin.getBirthDate())
-                        .email(admin.getEmail())
-                        .phoneNumber(admin.getPhoneNumber())
-                        .build());
+        adminRepository.save(admin);
     }
 
     /**
