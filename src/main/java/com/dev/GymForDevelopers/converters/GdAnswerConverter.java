@@ -3,6 +3,7 @@ package com.dev.GymForDevelopers.converters;
 import com.dev.GymForDevelopers.models.DTO.GdAnswerDTO;
 import com.dev.GymForDevelopers.models.entity.GdAnswer;
 import org.springframework.stereotype.Service;
+
 /**
  * Сервис для конвертации Entity в DTO и наоборот(Ответ)
  *
@@ -20,6 +21,7 @@ public class GdAnswerConverter {
                 .whoAnswered(dto.getWhoAnswered())
                 .build();
     }
+
     /**
      * из Entity в DTO
      */

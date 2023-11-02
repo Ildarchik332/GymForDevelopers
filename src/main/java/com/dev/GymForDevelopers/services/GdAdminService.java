@@ -39,7 +39,7 @@ public class GdAdminService {
     /**
      * Метод для поиска админа по имени
      *
-     * @param name
+     * @param name Имя администратора
      */
     public GdAdmin findByName(String name) {
         return adminRepository.findByName(name)

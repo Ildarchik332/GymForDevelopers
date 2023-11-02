@@ -28,7 +28,7 @@ public class GdNoteConverter {
     /**
      * из Entity в DTO
      */
-    public GdNoteDTO convertToDTO(GdNote note){
+    public GdNoteDTO convertToDTO(GdNote note) {
         return GdNoteDTO.newBuilderDTO()
                 .dataOfCreation(LocalDate.now())
                 .advice(note.getAdvice())

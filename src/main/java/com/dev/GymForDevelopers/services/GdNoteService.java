@@ -8,8 +8,6 @@ import com.dev.GymForDevelopers.repositories.GdNoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-
 /**
  * Сервис для работы с заметками
  *
@@ -40,7 +38,7 @@ public class GdNoteService {
     /**
      * Метод для поиска заметки по id
      *
-     * @param id
+     * @param id Идентификатор заметки
      */
     public GdNote findOne(int id) {
         return gdNoteRepository.findById(id)

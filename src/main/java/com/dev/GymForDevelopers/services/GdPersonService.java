@@ -37,9 +37,9 @@ public class GdPersonService {
     /**
      * Метод для поиска пользователя по id
      *
-     * @param id
+     * @param id Идентификатор пользователя
      */
-    public GdPerson findOne(long id) {
+    public GdPerson findOne(Long id) {
         return gdPersonRepository.findById(id)
                 .orElseThrow(() -> {
                     throw new GdNotFoundException(ExceptionConst.MESSAGE_NF, ExceptionConst.ERRORS_CODE_NF);
