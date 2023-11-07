@@ -14,4 +14,6 @@ public class GdAnswerDTO {
     private GdQuestion question;
 
     private String whoAnswered;
+
+    private Long likes;
 }
