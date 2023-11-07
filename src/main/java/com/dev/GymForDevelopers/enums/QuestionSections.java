@@ -1,4 +1,4 @@
-package com.dev.GymForDevelopers.util;
+package com.dev.GymForDevelopers.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
