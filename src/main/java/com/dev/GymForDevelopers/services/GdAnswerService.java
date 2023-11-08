@@ -6,6 +6,7 @@ import com.dev.GymForDevelopers.models.entity.GdAnswer;
 import com.dev.GymForDevelopers.models.entity.GdQuestion;
 import com.dev.GymForDevelopers.repositories.GdAnswerRepository;
 import com.dev.GymForDevelopers.repositories.GdQuestionRepository;
+import com.dev.GymForDevelopers.util.AppStartedListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,11 +32,11 @@ public class GdAnswerService {
     /**
      * Метод для создания ответа
      *
-     * @param answer Данные ответа
+     * @param gdanswer Данные ответа
      */
-    public void save(Long questionId, GdAnswer answer) {
+    public void save(Long questionId, GdAnswer gdanswer) {
 
-        if (answer == null) {
+        if (gdanswer == null) {
             throw new GdRuntimeException(ExceptionConst.MESSAGE_RT, ExceptionConst.ERRORS_CODE_RT);
         }
 
@@ -46,10 +47,28 @@ public class GdAnswerService {
 
         List<GdAnswer> answerList = question.getAnswer();
 
-        answerList.add(answer);
-        answer.setQuestion(question);
+        answerList.add(gdanswer);
+        gdanswer.setQuestion(question);
 
         gdQuestionRepository.save(question);
-        gdAnswerRepository.save(answer);
+        gdAnswerRepository.save(gdanswer);
     }
+
+    /**
+     * Метод для инкрементации лайков
+     *
+     * @param id
+     * @return
+     */
+    public Long like(Long id) {
+        Long currentLikes = AppStartedListener.mapLikes.get(id);
+        if (currentLikes == null) {
+            currentLikes = 0L;
+        }
+        Long finalCurrentLikes = currentLikes;
+        return AppStartedListener.mapLikes.compute(id, (a, b) -> Math.addExact(finalCurrentLikes, 1));
+    }
+
+
 }
+
