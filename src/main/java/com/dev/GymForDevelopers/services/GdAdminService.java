@@ -25,15 +25,15 @@ public class GdAdminService {
     /**
      * Метод для создания администратора
      *
-     * @param admin Данные администратора
+     * @param gdAdmin Данные администратора
      */
-    public void save(GdAdmin admin) {
+    public void save(GdAdmin gdAdmin) {
 
-        if (admin == null) {
+        if (gdAdmin == null) {
             throw new GdRuntimeException(ExceptionConst.MESSAGE_RT, ExceptionConst.ERRORS_CODE_RT);
         }
 
-        adminRepository.save(admin);
+        adminRepository.save(gdAdmin);
     }
 
     /**

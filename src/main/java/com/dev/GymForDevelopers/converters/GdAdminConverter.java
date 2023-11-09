@@ -14,27 +14,27 @@ public class GdAdminConverter {
     /**
      * Из DTO в Entity
      */
-    public GdAdmin convertToEntity(GdAdminDTO dto){
+    public GdAdmin convertToEntity(GdAdminDTO gdAdminDTO) {
         return GdAdmin.builder()
-                .name(dto.getName())
-                .age(dto.getAge())
-                .birthDate(dto.getBirthDate())
-                .email(dto.getEmail())
-                .birthDate(dto.getBirthDate())
-                .phoneNumber(dto.getPhoneNumber())
+                .name(gdAdminDTO.getName())
+                .age(gdAdminDTO.getAge())
+                .birthDate(gdAdminDTO.getBirthDate())
+                .email(gdAdminDTO.getEmail())
+                .birthDate(gdAdminDTO.getBirthDate())
+                .phoneNumber(gdAdminDTO.getPhoneNumber())
                 .build();
     }
 
     /**
      * из Entity в DTO
      */
-    public GdAdminDTO convertToDTO(GdAdmin admin){
+    public GdAdminDTO convertToDTO(GdAdmin gdAdmin) {
         return GdAdminDTO.builder()
-                .name(admin.getName())
-                .age(admin.getAge())
-                .birthDate(admin.getBirthDate())
-                .email(admin.getEmail())
-                .phoneNumber(admin.getPhoneNumber())
+                .name(gdAdmin.getName())
+                .age(gdAdmin.getAge())
+                .birthDate(gdAdmin.getBirthDate())
+                .email(gdAdmin.getEmail())
+                .phoneNumber(gdAdmin.getPhoneNumber())
                 .build();
     }
 

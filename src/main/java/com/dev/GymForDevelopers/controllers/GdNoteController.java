@@ -22,8 +22,8 @@ public class GdNoteController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<String> create(@RequestBody GdNoteDTO noteDTO) {
-        gdNoteService.save(gdConverterNote.convertToEntity(noteDTO));
+    public ResponseEntity<String> create(@RequestBody GdNoteDTO gdNoteDTO) {
+        gdNoteService.save(gdConverterNote.convertToEntity(gdNoteDTO));
         return ResponseEntity.ok("Заметка успешно создана");
     }
 
@@ -31,6 +31,5 @@ public class GdNoteController {
     public GdNote getNote(@PathVariable("id") int id) {
         return gdNoteService.findOne(id);
     }
-
 
 }

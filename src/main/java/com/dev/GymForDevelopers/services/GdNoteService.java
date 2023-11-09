@@ -26,13 +26,13 @@ public class GdNoteService {
     /**
      * Метод для создания заметки
      *
-     * @param note Критерии заметки
+     * @param gdNote Критерии заметки
      */
-    public void save(GdNote note) {
-        if (note == null) {
+    public void save(GdNote gdNote) {
+        if (gdNote == null) {
             throw new GdRuntimeException(ExceptionConst.MESSAGE_RT, ExceptionConst.ERRORS_CODE_RT);
         }
-        gdNoteRepository.save(note);
+        gdNoteRepository.save(gdNote);
     }
 
     /**

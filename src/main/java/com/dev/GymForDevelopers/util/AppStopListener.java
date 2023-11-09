@@ -9,6 +9,8 @@ import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 @Slf4j
 @Service
 public class AppStopListener implements ApplicationListener<ContextClosedEvent> {
@@ -21,9 +23,12 @@ public class AppStopListener implements ApplicationListener<ContextClosedEvent> 
 
     @Override
     public void onApplicationEvent(@Nullable ContextClosedEvent event) {
+        AtomicInteger countUpdatedAnswer = new AtomicInteger();
         try {
-            AppStartedListener.mapLikes.forEach((id, likes) -> gdAnswerRepository.saveLikes(id, likes));
-            log.info("Кэш ответов успешно сохранен");
+            AppStartedListener.mapLikes.forEach((id, likes) ->
+                    countUpdatedAnswer.set(gdAnswerRepository.saveLikes(id, likes))
+            );
+            log.info("Количество ответов у которых были обновлены лайки: {}", countUpdatedAnswer);
         } catch (Exception e) {
             log.error("Ошибка при сохранении кэша ответов");
             throw new GdRuntimeException("Ошибка при сохранении кэша ответов", "answer.cache.save.failed");

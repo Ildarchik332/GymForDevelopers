@@ -14,22 +14,22 @@ public class GdQuestionConverter {
     /**
      * Из DTO в Entity
      */
-    public GdQuestion convertToEntity(GdQuestionDTO DTO) {
+    public GdQuestion convertToEntity(GdQuestionDTO gdQuestionDTO) {
         return GdQuestion.builder()
-                .issue(DTO.getIssue())
-                .section(DTO.getSection())
-                .whoAsked(DTO.getWhoAsked())
+                .issue(gdQuestionDTO.getIssue())
+                .section(gdQuestionDTO.getSection())
+                .whoAsked(gdQuestionDTO.getWhoAsked())
                 .build();
     }
 
     /**
      * из Entity в DTO
      */
-    public GdQuestionDTO convertToDTO(GdQuestion question) {
+    public GdQuestionDTO convertToDTO(GdQuestion gdQuestion) {
         return GdQuestionDTO.builder()
-                .issue(question.getIssue())
-                .section(question.getSection())
-                .whoAsked(question.getWhoAsked())
+                .issue(gdQuestion.getIssue())
+                .section(gdQuestion.getSection())
+                .whoAsked(gdQuestion.getWhoAsked())
                 .build();
     }
 }

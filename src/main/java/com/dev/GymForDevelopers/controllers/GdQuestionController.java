@@ -23,8 +23,8 @@ public class GdQuestionController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<String> create(@RequestBody GdQuestionDTO questionDTO) {
-        gdQuestionService.save(gdQuestionConverter.convertToEntity(questionDTO));
+    public ResponseEntity<String> create(@RequestBody GdQuestionDTO gdQuestionDTO) {
+        gdQuestionService.save(gdQuestionConverter.convertToEntity(gdQuestionDTO));
         return ResponseEntity.ok("Вопрос успешно создан");
     }
 
