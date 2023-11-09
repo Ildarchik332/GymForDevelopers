@@ -42,8 +42,6 @@ public class GdNoteService {
      */
     public GdNote findOne(int id) {
         return gdNoteRepository.findById(id)
-                .orElseThrow(() -> {
-                    throw new GdNotFoundException(ExceptionConst.MESSAGE_NF, ExceptionConst.ERRORS_CODE_NF);
-                });
+                .orElseThrow(() -> new GdNotFoundException(ExceptionConst.MESSAGE_NF, ExceptionConst.ERRORS_CODE_NF));
     }
 }

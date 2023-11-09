@@ -30,4 +30,5 @@ public class GdAnswerController {
         Long actualLikes = gdAnswerService.like(id);
         return ResponseEntity.ok(actualLikes);
     }
+
 }

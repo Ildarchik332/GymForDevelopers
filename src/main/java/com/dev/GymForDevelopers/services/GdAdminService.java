@@ -43,8 +43,6 @@ public class GdAdminService {
      */
     public GdAdmin findByName(String name) {
         return adminRepository.findByName(name)
-                .orElseThrow(() -> {
-                    throw new GdNotFoundException(ExceptionConst.MESSAGE_NF, ExceptionConst.ERRORS_CODE_NF);
-                });
+                .orElseThrow(() -> new GdNotFoundException(ExceptionConst.MESSAGE_NF, ExceptionConst.ERRORS_CODE_NF));
     }
 }

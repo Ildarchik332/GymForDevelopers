@@ -55,10 +55,10 @@ public class GdAnswerService {
     }
 
     /**
-     * Метод для инкрементации лайков
+     * Лайк ответа
      *
-     * @param id
-     * @return
+     * @param id Идентификатор ответа
+     * @return Текущее количество лайков
      */
     public Long like(Long id) {
         Long currentLikes = AppStartedListener.mapLikes.get(id);

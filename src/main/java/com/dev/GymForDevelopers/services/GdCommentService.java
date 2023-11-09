@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 /**
  * Сервис для работы с комментариями
  *
@@ -46,11 +44,7 @@ public class GdCommentService {
             throw new GdRuntimeException("В поле noteId был передан null", ExceptionConst.ERRORS_CODE_RT);
         }
 
-        //List<GdComment> commentList = note.getComments();
-
-        //commentList.add(gdComment);
         gdComment.setNote(note);
-
         gdCommentRepository.save(gdComment);
 
         return gdComment;

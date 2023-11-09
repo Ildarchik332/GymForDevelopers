@@ -25,7 +25,7 @@ public class GdCommentController {
 
     @PostMapping("/create")
     public GdComment create(@RequestBody GdCommentDTO gdCommentDTO) {
-        return gdCommentService.create(gdCommentDTO.getNoteId(),gdCommentConverter.convertToEntity(gdCommentDTO));
-
+        return gdCommentService.create(gdCommentDTO.getNoteId(), gdCommentConverter.convertToEntity(gdCommentDTO));
     }
+
 }

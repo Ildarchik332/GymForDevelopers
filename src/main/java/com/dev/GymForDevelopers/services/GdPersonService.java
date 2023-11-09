@@ -41,9 +41,7 @@ public class GdPersonService {
      */
     public GdPerson findOne(Long id) {
         return gdPersonRepository.findById(id)
-                .orElseThrow(() -> {
-                    throw new GdNotFoundException(ExceptionConst.MESSAGE_NF, ExceptionConst.ERRORS_CODE_NF);
-                });
+                .orElseThrow(() -> new GdNotFoundException(ExceptionConst.MESSAGE_NF, ExceptionConst.ERRORS_CODE_NF));
     }
 
 }
