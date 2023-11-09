@@ -25,13 +25,13 @@ public class GdPersonService {
     /**
      * Метод для создания пользователя
      *
-     * @param person Данные пользователя
+     * @param gdPerson Данные пользователя
      */
-    public void save(GdPerson person) {
-        if (person == null) {
+    public void save(GdPerson gdPerson) {
+        if (gdPerson == null) {
             throw new GdRuntimeException(ExceptionConst.MESSAGE_RT, ExceptionConst.ERRORS_CODE_RT);
         }
-        gdPersonRepository.save(person);
+        gdPersonRepository.save(gdPerson);
     }
 
     /**

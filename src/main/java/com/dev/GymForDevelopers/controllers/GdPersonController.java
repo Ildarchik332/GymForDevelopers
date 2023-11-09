@@ -21,8 +21,8 @@ public class GdPersonController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<String> create(@RequestBody GdPersonDTO personDTO) {
-        gdPersonService.save(gdPersonConverter.convertToEntity(personDTO));
+    public ResponseEntity<String> create(@RequestBody GdPersonDTO gdPersonDTO) {
+        gdPersonService.save(gdPersonConverter.convertToEntity(gdPersonDTO));
 
         return ResponseEntity.ok("Пользователь успешно создан");
     }

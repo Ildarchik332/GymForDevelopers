@@ -1,35 +1,33 @@
 package com.dev.GymForDevelopers.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "answer")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class GdAnswer {
+@Table(name = "comment")
+public class GdComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
-    private String response;
+    private String author;
 
-    private String whoAnswered;
+    private LocalDateTime dateOfCreation;
 
-    private Long likes;
+    private String text;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "question_id", referencedColumnName = "id")
-    private GdQuestion question;
-
-
-
+    @JoinColumn(name = "note_id", referencedColumnName = "id")
+    @JsonBackReference
+    private GdNote note;
 }

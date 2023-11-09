@@ -14,27 +14,27 @@ public class GdPersonConverter {
     /**
      * Из DTO в Entity
      */
-    public GdPerson convertToEntity(GdPersonDTO personDTO) {
+    public GdPerson convertToEntity(GdPersonDTO gdPersonDTO) {
 
         return GdPerson.builder()
-                .age(personDTO.getAge())
-                .country(personDTO.getCountry())
-                .email(personDTO.getEmail())
-                .birthDate(personDTO.getBirthDate())
-                .name(personDTO.getName())
+                .age(gdPersonDTO.getAge())
+                .country(gdPersonDTO.getCountry())
+                .email(gdPersonDTO.getEmail())
+                .birthDate(gdPersonDTO.getBirthDate())
+                .name(gdPersonDTO.getName())
                 .build();
     }
 
     /**
      * из Entity в DTO
      */
-    public GdPersonDTO convertToPersonDTO(GdPerson person) {
+    public GdPersonDTO convertToPersonDTO(GdPerson gdPerson) {
         return GdPersonDTO.builder()
-                .age(person.getAge())
-                .name(person.getName())
-                .birthDate(person.getBirthDate())
-                .email(person.getEmail())
-                .country(person.getCountry())
+                .age(gdPerson.getAge())
+                .name(gdPerson.getName())
+                .birthDate(gdPerson.getBirthDate())
+                .email(gdPerson.getEmail())
+                .country(gdPerson.getCountry())
                 .build();
     }
 

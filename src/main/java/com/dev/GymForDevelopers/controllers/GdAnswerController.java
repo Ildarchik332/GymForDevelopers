@@ -11,17 +11,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/answer")
 public class GdAnswerController {
     private final GdAnswerService gdAnswerService;
-    private final GdAnswerConverter gdAnswerConverter;
+    private final GdAnswerConverter gdConvertAnswer;
 
     @Autowired
-    public GdAnswerController(GdAnswerService gdAnswerService, GdAnswerConverter gdAnswerConverter) {
+    public GdAnswerController(GdAnswerService gdAnswerService, GdAnswerConverter gdConvertAnswer) {
         this.gdAnswerService = gdAnswerService;
-        this.gdAnswerConverter = gdAnswerConverter;
+        this.gdConvertAnswer = gdConvertAnswer;
     }
 
     @PostMapping("/create")
-    public ResponseEntity<String> create(@RequestBody GdAnswerDTO answerDTO) {
-        gdAnswerService.save(answerDTO.getQuestionId(), gdAnswerConverter.convertToEntity(answerDTO));
+    public ResponseEntity<String> create(@RequestBody GdAnswerDTO gdAnswerDTO) {
+        gdAnswerService.save(gdAnswerDTO.getQuestionId(), gdConvertAnswer.convertToEntity(gdAnswerDTO));
         return ResponseEntity.ok("Ваш ответ успешно добавлен");
     }
 

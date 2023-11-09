@@ -1,17 +1,19 @@
 package com.dev.GymForDevelopers.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import javax.xml.stream.events.Comment;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "note")
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
 public class GdNote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,12 +27,18 @@ public class GdNote {
 
     private String whoCreated;
 
+    @OneToMany(mappedBy = "note", fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private List<GdComment> comments;
+
+
     public GdNote(BuilderGdNote builderGdNote) {
         this.id = builderGdNote.id;
         this.section = builderGdNote.section;
         this.advice = builderGdNote.advice;
         this.dateOfCreation = builderGdNote.dateOfCreation;
         this.whoCreated = builderGdNote.whoCreated;
+        this.comments = builderGdNote.comments;
     }
 
     public static BuilderGdNote newBuilder() {
@@ -44,6 +52,7 @@ public class GdNote {
         private String advice;
         private LocalDate dateOfCreation;
         private String whoCreated;
+        private List<GdComment> comments;
 
         public BuilderGdNote id(Integer id) {
             this.id = id;
@@ -67,6 +76,10 @@ public class GdNote {
 
         public BuilderGdNote whoCreated(String whoCreated) {
             this.whoCreated = whoCreated;
+            return this;
+        }
+        public BuilderGdNote comments(List<GdComment> comments){
+            this.comments = comments;
             return this;
         }
 
