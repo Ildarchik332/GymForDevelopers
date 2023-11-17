@@ -1,5 +1,6 @@
 package com.dev.GymForDevelopers.converters;
 
+import com.dev.GymForDevelopers.enums.StatusEnum;
 import com.dev.GymForDevelopers.models.DTO.GdNoteDTO;
 import com.dev.GymForDevelopers.models.entity.GdNote;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ public class GdNoteConverter {
                 .whoCreated(gdNoteDTO.getWhoCreated())
                 .section(gdNoteDTO.getSection())
                 .dateOfCreation(LocalDate.now())
+                .status(gdNoteDTO.getStatus())
                 .build();
     }
 

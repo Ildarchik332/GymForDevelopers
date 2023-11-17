@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface GdPersonRepository extends JpaRepository<GdPerson, Integer> {
 
-    Optional<GdPerson> findById(long id);
+    Optional<GdPerson> findById(Long id);
 }
