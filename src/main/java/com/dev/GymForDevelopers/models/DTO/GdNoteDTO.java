@@ -1,7 +1,5 @@
 package com.dev.GymForDevelopers.models.DTO;
 
-import com.dev.GymForDevelopers.enums.StatusEnum;
-import com.fasterxml.jackson.databind.EnumNamingStrategies;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,12 +21,15 @@ public class GdNoteDTO {
 
     private Integer status;
 
+    private String number;
+
     public GdNoteDTO(BuilderDTO builderDTO) {
         this.section = builderDTO.section;
         this.advice = builderDTO.advice;
         this.whoCreated = builderDTO.whoCreated;
         this.dateOfCreation = builderDTO.dateOfCreation;
         this.status = builderDTO.status;
+        this.number = builderDTO.number;
     }
 
     public static BuilderDTO newBuilderDTO() {
@@ -41,6 +42,7 @@ public class GdNoteDTO {
         private LocalDate dateOfCreation;
         private String whoCreated;
         private Integer status;
+        private String number;
 
         public BuilderDTO section(String section) {
             this.section = section;
@@ -63,6 +65,10 @@ public class GdNoteDTO {
         }
         public BuilderDTO status(Integer status){
             this.status = status;
+            return this;
+        }
+        public BuilderDTO number(String number){
+            this.number = number;
             return this;
         }
 

@@ -8,10 +8,16 @@ import com.dev.GymForDevelopers.models.entity.GdNote;
 import com.dev.GymForDevelopers.repositories.GdNoteHistoryRepository;
 import com.dev.GymForDevelopers.repositories.GdNoteRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,6 +31,18 @@ public class GdNoteService {
 
     private final GdNoteRepository gdNoteRepository;
     private final GdNoteHistoryRepository gdNoteHistoryRepository;
+
+    @Value("${spring.datasource.url}")
+    private String URL;
+
+    @Value("${spring.datasource.username}")
+    private String USERNAME;
+
+    @Value("${spring.datasource.password}")
+    private String PASSWORD;
+
+    @Value("${note.number}")
+    private String numberNote;
 
     @Autowired
     public GdNoteService(GdNoteRepository gdNoteRepository, GdNoteHistoryRepository gdNoteHistoryRepository) {
@@ -43,6 +61,27 @@ public class GdNoteService {
             throw new GdRuntimeException(ExceptionConst.MESSAGE_RT, ExceptionConst.ERRORS_CODE_RT);
         }
         gdNote.setStatus(StatusEnum.IN_REVIEW.getCode());
+
+        DateFormat dateFormat = new SimpleDateFormat(numberNote);
+        String number;
+
+        try {
+            Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT nextval('gd_note_number_sequence')");
+
+            if (resultSet.next()) {
+                number = dateFormat
+                        .format(new Date()) + StringUtils.leftPad(String
+                        .valueOf(resultSet.getLong("nextval")), 4, "0");
+                gdNote.setNumber(number);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            log.error("Не удалось сохранить заметку {}", e.getMessage());
+            throw new GdRuntimeException("Не удалось сохранить заметку", "note.save.failed");
+        }
+
         gdNoteRepository.save(gdNote);
     }
 
@@ -136,7 +175,7 @@ public class GdNoteService {
         try {
             gdNoteHistoryRepository.deleteInAMonth();
         } catch (Exception e) {
-            log.error("Ошибка в ходе ежемесячного удаления заметок : {}",  e.getMessage());
+            log.error("Ошибка в ходе ежемесячного удаления заметок : {}", e.getMessage());
             throw new GdRuntimeException("Ошибка в ходе ежемесячного удаления заметок", "note.delete.failed");
         }
     }
