@@ -1,11 +1,12 @@
 package com.dev.GymForDevelopers.models.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -96,7 +97,8 @@ public class GdNote {
             this.status = status;
             return this;
         }
-        public BuilderGdNote number(String number){
+
+        public BuilderGdNote number(String number) {
             this.number = number;
             return this;
         }
