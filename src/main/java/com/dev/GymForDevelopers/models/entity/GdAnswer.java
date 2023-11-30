@@ -1,16 +1,13 @@
 package com.dev.GymForDevelopers.models.entity;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "answer")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,7 +26,6 @@ public class GdAnswer {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "question_id", referencedColumnName = "id")
     private GdQuestion question;
-
 
 
 }
