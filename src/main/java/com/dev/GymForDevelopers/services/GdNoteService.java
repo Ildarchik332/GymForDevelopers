@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -77,7 +78,9 @@ public class GdNoteService {
         if (gdNote == null) {
             throw new GdRuntimeException(ExceptionConst.MESSAGE_RT, ExceptionConst.ERRORS_CODE_RT);
         }
+
         gdNote.setStatus(StatusEnum.IN_REVIEW.getCode());
+        gdNote.setDateOfCreation(LocalDate.now());
 
         DateFormat dateFormat = new SimpleDateFormat(numberNote);
         String number;

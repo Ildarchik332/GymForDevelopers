@@ -84,5 +84,12 @@ public class GdNoteController {
         return ResponseEntity.ok("Заметка удалена");
     }
 
+    @ApiOperation("Метод для создания заметки из JSON'а")
+    @PostMapping("/create/json")
+    public ResponseEntity<String> createJson(@RequestBody String noteJson){
+        gdNoteService.save(gdConverterNote.convertToEntityFromString(noteJson));
+        return ResponseEntity.ok("Заметка успешно создана");
+    }
+
 
 }

@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 /**
  * Сервис для работы с комментариями
  *
@@ -33,12 +35,12 @@ public class GdCommentService {
      * @param gdComment комментарий
      */
     //todo поле author будет браться из токена
-    @Transactional
     public GdComment create(Integer noteId, GdComment gdComment) {
         if (gdComment == null) {
             throw new GdRuntimeException("В качестве комментария был передан null", ExceptionConst.ERRORS_CODE_RT);
         }
 
+        gdComment.setDateOfCreation(LocalDateTime.now());
         GdNote note = gdNoteRepository.findNoteById(noteId);
         if (note == null) {
             throw new GdRuntimeException("В поле noteId был передан null", ExceptionConst.ERRORS_CODE_RT);
