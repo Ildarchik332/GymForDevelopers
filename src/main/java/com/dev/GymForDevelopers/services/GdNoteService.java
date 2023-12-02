@@ -5,12 +5,15 @@ import com.dev.GymForDevelopers.exceptions.ExceptionConst;
 import com.dev.GymForDevelopers.exceptions.GdNotFoundException;
 import com.dev.GymForDevelopers.exceptions.GdRuntimeException;
 import com.dev.GymForDevelopers.models.entity.GdNote;
+import com.dev.GymForDevelopers.models.entity.GdPerson;
 import com.dev.GymForDevelopers.repositories.GdNoteHistoryRepository;
 import com.dev.GymForDevelopers.repositories.GdNoteRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +46,20 @@ public class GdNoteService {
 
     @Value("${note.number}")
     private String numberNote;
+
+    @Value("${Gd.mail.username}")
+    private String email;
+
+    private final static String SUBJECT = "Статус заметки изменен!";
+    private final static String TEXT = "! Статус заметки был изменен. Присвоен статус: ";
+
+    //todo Сдеалть полноценный доступ к полям user'а (email, name...) после настройки Security + также написать свою почту сервиса
+    private JavaMailSender mailSender;
+
+    @Autowired(required = false)
+    public void setMailSender(JavaMailSender mailSender){
+        this.mailSender = mailSender;
+    }
 
     @Autowired
     public GdNoteService(GdNoteRepository gdNoteRepository, GdNoteHistoryRepository gdNoteHistoryRepository) {
@@ -116,12 +133,22 @@ public class GdNoteService {
      * @param id
      */
     public void acceptNote(Integer id) {
+        GdPerson user = new GdPerson();
         try {
             gdNoteRepository.saveNewStatus(id, StatusEnum.ACCEPTED.getCode());
         } catch (Exception e) {
             log.error("Ошибка в ходе принятия заметки с идентификатором {} : {}", id, e.getMessage());
             throw new GdRuntimeException("Ошибка в ходе принятия заметки с идентификатором", "note.accept.failed");
         }
+        SimpleMailMessage message = new SimpleMailMessage();
+
+        message.setFrom(email);
+        message.setTo("andrew_1375@mail.ru");
+        message.setSubject(SUBJECT);
+        message.setText(user.getName() + TEXT + StatusEnum.ACCEPTED.getDescription());
+
+        mailSender.send(message);
+
     }
 
     /**
@@ -130,12 +157,22 @@ public class GdNoteService {
      * @param id
      */
     public void rejectNote(Integer id) {
+        GdPerson user = new GdPerson();
+
         try {
             gdNoteRepository.saveNewStatus(id, StatusEnum.REJECTED.getCode());
         } catch (Exception e) {
             log.error("Ошибка в ходе отклонения заметки с идентификатором {} : {}", id, e.getMessage());
             throw new GdRuntimeException("Ошибка в ходе отклонения заметки с идентификатором", "note.reject.failed");
         }
+        SimpleMailMessage message = new SimpleMailMessage();
+
+        message.setFrom(email);
+        message.setTo(user.getEmail());
+        message.setSubject(SUBJECT);
+        message.setText(user.getName() + TEXT + StatusEnum.REJECTED.getDescription());
+
+        mailSender.send(message);
 
     }
 
@@ -145,12 +182,22 @@ public class GdNoteService {
      * @param id
      */
     public void deleteFromNoteToHistory(Integer id) {
+        GdPerson user = new GdPerson();
         try {
             gdNoteHistoryRepository.save(id, StatusEnum.DELETED.getCode());
         } catch (Exception e) {
             log.error("Ошибка в ходе удаления заметки с идентификатором {} : {}", id, e.getMessage());
             throw new GdRuntimeException("Ошибка в ходе удаления заметки с идентификатором", "note.delete.failed");
         }
+
+        SimpleMailMessage message = new SimpleMailMessage();
+
+        message.setFrom(email);
+        message.setTo(user.getEmail());
+        message.setSubject(SUBJECT);
+        message.setText(user.getName() + TEXT + StatusEnum.DELETED.getDescription());
+
+        mailSender.send(message);
     }
 
     /**
@@ -159,12 +206,21 @@ public class GdNoteService {
      * @param id
      */
     public void recoveredNote(Integer id) {
+        GdPerson user = new GdPerson();
         try {
             gdNoteRepository.save(id, StatusEnum.RECOVERED.getCode());
         } catch (Exception e) {
             log.error("Ошибка в ходе востановления заметки с идентификатором {} : {}", id, e.getMessage());
             throw new GdRuntimeException("Ошибка в ходе востановления заметки с идентификатором", "note.recovered.failed");
         }
+        SimpleMailMessage message = new SimpleMailMessage();
+
+        message.setFrom(email);
+        message.setTo(user.getEmail());
+        message.setSubject(SUBJECT);
+        message.setText(user.getName() + TEXT + StatusEnum.RECOVERED.getDescription());
+
+        mailSender.send(message);
     }
 
     /**
