@@ -21,7 +21,6 @@ public class GdCommentConverter {
                 .author(gdCommentDTO.getAuthor())
                 .note(gdCommentDTO.getNote())
                 .text(gdCommentDTO.getText())
-                .dateOfCreation(LocalDateTime.now())
                 .build();
     }
 
