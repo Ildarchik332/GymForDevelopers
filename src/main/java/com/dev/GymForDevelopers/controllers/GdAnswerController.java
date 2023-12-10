@@ -30,7 +30,7 @@ public class GdAnswerController {
         return ResponseEntity.ok("Ваш ответ успешно добавлен");
     }
 
-    @ApiOperation("Метод для поиска ответа по индентификатору")
+    @ApiOperation("Метод для проставления лайка для ответа")
     @PostMapping("/like/{id}")
     public ResponseEntity<Long> like(@PathVariable("id") Long id) {
         Long actualLikes = gdAnswerService.like(id);

@@ -9,14 +9,14 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public interface GdNoteHistoryRepository extends JpaRepository<GdNoteHistory, Integer> {
+public interface GdNoteHistoryRepository extends JpaRepository<GdNoteHistory, Long> {
     @Transactional
     @Modifying(clearAutomatically = true)
     @Query(nativeQuery = true,
-            value = "INSERT INTO note_history (section, advice, date_of_creation, who_created, status)" +
-                    "SELECT section, advice, date_of_creation, who_created, :status FROM note WHERE id = :id ; " +
+            value = "INSERT INTO note_history (section, advice, date_of_creation, who_created, number, likes, dislikes, status)" +
+                    "SELECT section, advice, date_of_creation, who_created, number, likes, dislikes, :status FROM note WHERE id = :id ; " +
                     "DELETE FROM note WHERE id = :id")
-    void save(@Param("id") Integer id, @Param("status") Integer status);
+    void save(@Param("id") Long id, @Param("status") Integer status);
 
 
     @Transactional

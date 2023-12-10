@@ -23,6 +23,10 @@ public class GdNoteDTO {
 
     private String number;
 
+    private Long likes;
+
+    private Long dislikes;
+
     public GdNoteDTO(BuilderDTO builderDTO) {
         this.section = builderDTO.section;
         this.advice = builderDTO.advice;
@@ -30,6 +34,8 @@ public class GdNoteDTO {
         this.dateOfCreation = builderDTO.dateOfCreation;
         this.status = builderDTO.status;
         this.number = builderDTO.number;
+        this.likes = builderDTO.likes;
+        this.dislikes = builderDTO.dislikes;
     }
 
     public static BuilderDTO newBuilderDTO() {
@@ -43,6 +49,8 @@ public class GdNoteDTO {
         private String whoCreated;
         private Integer status;
         private String number;
+        private Long likes;
+        private Long dislikes;
 
         public BuilderDTO section(String section) {
             this.section = section;
@@ -69,6 +77,14 @@ public class GdNoteDTO {
         }
         public BuilderDTO number(String number){
             this.number = number;
+            return this;
+        }
+        public BuilderDTO likes(Long likes){
+            this.likes = likes;
+            return this;
+        }
+        public BuilderDTO dislikes(Long dislikes){
+            this.dislikes = dislikes;
             return this;
         }
 

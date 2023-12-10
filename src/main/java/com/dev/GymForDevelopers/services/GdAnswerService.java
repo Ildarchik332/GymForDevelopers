@@ -6,7 +6,8 @@ import com.dev.GymForDevelopers.models.entity.GdAnswer;
 import com.dev.GymForDevelopers.models.entity.GdQuestion;
 import com.dev.GymForDevelopers.repositories.GdAnswerRepository;
 import com.dev.GymForDevelopers.repositories.GdQuestionRepository;
-import com.dev.GymForDevelopers.util.AppStartedListener;
+import com.dev.GymForDevelopers.listner.AppStartedListener;
+import com.dev.GymForDevelopers.util.ValueLikes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,12 +62,13 @@ public class GdAnswerService {
      * @return Текущее количество лайков
      */
     public Long like(Long id) {
-        Long currentLikes = AppStartedListener.mapLikes.get(id);
-        if (currentLikes == null) {
-            currentLikes = 0L;
-        }
-        Long finalCurrentLikes = currentLikes;
-        return AppStartedListener.mapLikes.compute(id, (a, b) -> Math.addExact(finalCurrentLikes, 1));
+        ValueLikes currentLikes = AppStartedListener.mapAnswerLikes.get(id);
+
+        Long endValue = currentLikes.setEndValue(currentLikes.getEndValue() + 1);
+
+        AppStartedListener.mapNoteDislikes.put(id, new ValueLikes(currentLikes.getStartValue(), endValue));
+
+        return endValue;
     }
 
 
