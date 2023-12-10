@@ -5,9 +5,10 @@ import com.dev.GymForDevelopers.exceptions.ExceptionConst;
 import com.dev.GymForDevelopers.exceptions.GdNotFoundException;
 import com.dev.GymForDevelopers.exceptions.GdRuntimeException;
 import com.dev.GymForDevelopers.models.entity.GdNote;
-import com.dev.GymForDevelopers.models.entity.GdPerson;
 import com.dev.GymForDevelopers.repositories.GdNoteHistoryRepository;
 import com.dev.GymForDevelopers.repositories.GdNoteRepository;
+import com.dev.GymForDevelopers.listner.AppStartedListener;
+import com.dev.GymForDevelopers.util.ValueLikes;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +59,7 @@ public class GdNoteService {
     private JavaMailSender mailSender;
 
     @Autowired(required = false)
-    public void setMailSender(JavaMailSender mailSender){
+    public void setMailSender(JavaMailSender mailSender) {
         this.mailSender = mailSender;
     }
 
@@ -111,7 +112,7 @@ public class GdNoteService {
      *
      * @param id Идентификатор заметки
      */
-    public GdNote findOne(Integer id) {
+    public GdNote findOne(Long id) {
         return gdNoteRepository.findById(id)
                 .orElseThrow(() -> new GdNotFoundException(ExceptionConst.MESSAGE_NF, ExceptionConst.ERRORS_CODE_NF));
     }
@@ -135,8 +136,7 @@ public class GdNoteService {
      *
      * @param id
      */
-    public void acceptNote(Integer id) {
-        GdPerson user = new GdPerson();
+    public void acceptNote(Long id) {
         try {
             gdNoteRepository.saveNewStatus(id, StatusEnum.ACCEPTED.getCode());
         } catch (Exception e) {
@@ -148,7 +148,7 @@ public class GdNoteService {
         message.setFrom(email);
         message.setTo("andrew_1375@mail.ru");
         message.setSubject(SUBJECT);
-        message.setText(user.getName() + TEXT + StatusEnum.ACCEPTED.getDescription());
+        message.setText("Имя" + TEXT + StatusEnum.ACCEPTED.getDescription());
 
         mailSender.send(message);
 
@@ -159,9 +159,7 @@ public class GdNoteService {
      *
      * @param id
      */
-    public void rejectNote(Integer id) {
-        GdPerson user = new GdPerson();
-
+    public void rejectNote(Long id) {
         try {
             gdNoteRepository.saveNewStatus(id, StatusEnum.REJECTED.getCode());
         } catch (Exception e) {
@@ -171,9 +169,9 @@ public class GdNoteService {
         SimpleMailMessage message = new SimpleMailMessage();
 
         message.setFrom(email);
-        message.setTo(user.getEmail());
+        message.setTo("andrew_1375@mail.ru");
         message.setSubject(SUBJECT);
-        message.setText(user.getName() + TEXT + StatusEnum.REJECTED.getDescription());
+        message.setText("Имя" + TEXT + StatusEnum.REJECTED.getDescription());
 
         mailSender.send(message);
 
@@ -184,8 +182,7 @@ public class GdNoteService {
      *
      * @param id
      */
-    public void deleteFromNoteToHistory(Integer id) {
-        GdPerson user = new GdPerson();
+    public void deleteFromNoteToHistory(Long id) {
         try {
             gdNoteHistoryRepository.save(id, StatusEnum.DELETED.getCode());
         } catch (Exception e) {
@@ -196,9 +193,9 @@ public class GdNoteService {
         SimpleMailMessage message = new SimpleMailMessage();
 
         message.setFrom(email);
-        message.setTo(user.getEmail());
+        message.setTo("andrew_1375@mail.ru");
         message.setSubject(SUBJECT);
-        message.setText(user.getName() + TEXT + StatusEnum.DELETED.getDescription());
+        message.setText("Имя" + TEXT + StatusEnum.DELETED.getDescription());
 
         mailSender.send(message);
     }
@@ -208,8 +205,7 @@ public class GdNoteService {
      *
      * @param id
      */
-    public void recoveredNote(Integer id) {
-        GdPerson user = new GdPerson();
+    public void recoveredNote(Long id) {
         try {
             gdNoteRepository.save(id, StatusEnum.RECOVERED.getCode());
         } catch (Exception e) {
@@ -219,9 +215,9 @@ public class GdNoteService {
         SimpleMailMessage message = new SimpleMailMessage();
 
         message.setFrom(email);
-        message.setTo(user.getEmail());
+        message.setTo("andrew_1375@mail.ru");
         message.setSubject(SUBJECT);
-        message.setText(user.getName() + TEXT + StatusEnum.RECOVERED.getDescription());
+        message.setText("Имя" + TEXT + StatusEnum.RECOVERED.getDescription());
 
         mailSender.send(message);
     }
@@ -244,7 +240,7 @@ public class GdNoteService {
      *
      * @param id
      */
-    public void delete(Integer id) {
+    public void delete(Long id) {
         try {
             gdNoteRepository.deleteById(id);
         } catch (Exception e) {
@@ -253,5 +249,34 @@ public class GdNoteService {
         }
     }
 
+    /**
+     * Лайк Note
+     *
+     * @param id
+     */
+    public Long like(Long id) {
+        ValueLikes currentLikes = AppStartedListener.mapNoteLikes.get(id);
+
+        Long endValue = currentLikes.setEndValue(currentLikes.getEndValue() + 1);
+
+        AppStartedListener.mapNoteDislikes.put(id, new ValueLikes(currentLikes.getStartValue(), endValue));
+
+        return endValue;
+    }
+
+    /**
+     * Дизлайк Note
+     *
+     * @param id
+     */
+    public Long dislike(Long id) {
+        ValueLikes currentDislikes = AppStartedListener.mapNoteDislikes.get(id);
+
+        Long endValue = currentDislikes.setEndValue(currentDislikes.getEndValue() + 1);
+
+        AppStartedListener.mapNoteDislikes.put(id, new ValueLikes(currentDislikes.getStartValue(), endValue));
+
+        return endValue;
+    }
 
 }

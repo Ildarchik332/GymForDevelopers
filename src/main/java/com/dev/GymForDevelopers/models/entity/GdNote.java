@@ -18,7 +18,7 @@ import java.util.List;
 public class GdNote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     private String section;
 
@@ -31,6 +31,10 @@ public class GdNote {
     private Integer status;
 
     private String number;
+
+    private Long likes;
+
+    private Long dislikes;
 
     @OneToMany(mappedBy = "note", fetch = FetchType.EAGER)
     @JsonManagedReference
@@ -46,6 +50,8 @@ public class GdNote {
         this.comments = builderGdNote.comments;
         this.status = builderGdNote.status;
         this.number = builderGdNote.number;
+        this.likes = builderGdNote.likes;
+        this.dislikes = builderGdNote.dislikes;
     }
 
     public static BuilderGdNote newBuilder() {
@@ -54,7 +60,7 @@ public class GdNote {
 
 
     public static class BuilderGdNote {
-        private Integer id;
+        private Long id;
         private String section;
         private String advice;
         private LocalDate dateOfCreation;
@@ -62,8 +68,10 @@ public class GdNote {
         private List<GdComment> comments;
         private Integer status;
         private String number;
+        private Long likes;
+        private Long dislikes;
 
-        public BuilderGdNote id(Integer id) {
+        public BuilderGdNote id(Long id) {
             this.id = id;
             return this;
         }
@@ -100,6 +108,14 @@ public class GdNote {
 
         public BuilderGdNote number(String number) {
             this.number = number;
+            return this;
+        }
+        public BuilderGdNote likes (Long likes){
+            this.likes = likes;
+            return this;
+        }
+        public BuilderGdNote dislikes(Long dislikes){
+            this.dislikes = dislikes;
             return this;
         }
 
