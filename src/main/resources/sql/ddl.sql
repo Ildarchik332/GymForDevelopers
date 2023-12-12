@@ -45,7 +45,7 @@ CREATE TABLE comment(
                         note_id int references note(id) on delete cascade,
                         text varchar not null,
                         author varchar not null,
-                        date_of_creation timestamp(0),
+                        date_of_creation timestamp(0)
 
 );
 CREATE TABLE note_history(
@@ -59,3 +59,4 @@ CREATE TABLE note_history(
                              likes bigint DEFAULT 0,
                              dislikes bigint DEFAULT 0
 );
+create sequence gd_note_number_sequence;
