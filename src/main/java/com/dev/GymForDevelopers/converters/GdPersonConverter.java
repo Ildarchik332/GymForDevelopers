@@ -22,6 +22,7 @@ public class GdPersonConverter {
                 .email(gdPersonDTO.getEmail())
                 .birthDate(gdPersonDTO.getBirthDate())
                 .name(gdPersonDTO.getName())
+                .extraInfo(gdPersonDTO.getExtraInfo())
                 .build();
     }
 
@@ -35,6 +36,7 @@ public class GdPersonConverter {
                 .birthDate(gdPerson.getBirthDate())
                 .email(gdPerson.getEmail())
                 .country(gdPerson.getCountry())
+                .extraInfo(gdPerson.getExtraInfo())
                 .build();
     }
 

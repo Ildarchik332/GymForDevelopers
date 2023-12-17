@@ -1,5 +1,6 @@
 package com.dev.GymForDevelopers.models.DTO;
 
+import com.dev.GymForDevelopers.models.entity.GdPerson;
 import lombok.Builder;
 import lombok.Data;
 
@@ -17,4 +18,6 @@ public class GdPersonDTO {
     private String country;
 
     private LocalDate birthDate;
+
+    private GdPerson.ExtraInfo extraInfo;
 }

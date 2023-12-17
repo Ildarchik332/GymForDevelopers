@@ -100,7 +100,7 @@ public class GdNoteService {
             connection.close();
         } catch (SQLException e) {
             log.error("Не удалось сохранить заметку {}", e.getMessage());
-            throw new GdRuntimeException("Не удалось сохранить заметку", "note.save.failed");
+            throw new GdRuntimeException("Не удалось сохранить заметку", "noteService.saveNote.failed");
         }
 
         gdNoteRepository.save(gdNote);
@@ -134,14 +134,15 @@ public class GdNoteService {
     /**
      * Метод для принятия заметки
      *
-     * @param id
+     * @param id Идентификатор заметки
      */
     public void acceptNote(Long id) {
         try {
             gdNoteRepository.saveNewStatus(id, StatusEnum.ACCEPTED.getCode());
         } catch (Exception e) {
             log.error("Ошибка в ходе принятия заметки с идентификатором {} : {}", id, e.getMessage());
-            throw new GdRuntimeException("Ошибка в ходе принятия заметки с идентификатором", "note.accept.failed");
+            throw new GdRuntimeException("Ошибка в ходе принятия заметки с идентификатором",
+                    "noteService.acceptNote.failed");
         }
         SimpleMailMessage message = new SimpleMailMessage();
 
@@ -157,14 +158,15 @@ public class GdNoteService {
     /**
      * Метод для отклонения заметки
      *
-     * @param id
+     * @param id Идентификатор заметки
      */
     public void rejectNote(Long id) {
         try {
             gdNoteRepository.saveNewStatus(id, StatusEnum.REJECTED.getCode());
         } catch (Exception e) {
             log.error("Ошибка в ходе отклонения заметки с идентификатором {} : {}", id, e.getMessage());
-            throw new GdRuntimeException("Ошибка в ходе отклонения заметки с идентификатором", "note.reject.failed");
+            throw new GdRuntimeException("Ошибка в ходе отклонения заметки с идентификатором",
+                    "noteService.rejectNote.failed");
         }
         SimpleMailMessage message = new SimpleMailMessage();
 
@@ -180,14 +182,15 @@ public class GdNoteService {
     /**
      * Метод удаления заметки (из Note)
      *
-     * @param id
+     * @param id Идентификатор заметки
      */
     public void deleteFromNoteToHistory(Long id) {
         try {
             gdNoteHistoryRepository.save(id, StatusEnum.DELETED.getCode());
         } catch (Exception e) {
             log.error("Ошибка в ходе удаления заметки с идентификатором {} : {}", id, e.getMessage());
-            throw new GdRuntimeException("Ошибка в ходе удаления заметки с идентификатором", "note.delete.failed");
+            throw new GdRuntimeException("Ошибка в ходе удаления заметки с идентификатором",
+                    "noteService.deleteFromNoteHistory.failed");
         }
 
         SimpleMailMessage message = new SimpleMailMessage();
@@ -203,14 +206,15 @@ public class GdNoteService {
     /**
      * Метод для востановления заметки (из Note_History)
      *
-     * @param id
+     * @param id Идентификатор заметки
      */
     public void recoveredNote(Long id) {
         try {
             gdNoteRepository.save(id, StatusEnum.RECOVERED.getCode());
         } catch (Exception e) {
             log.error("Ошибка в ходе востановления заметки с идентификатором {} : {}", id, e.getMessage());
-            throw new GdRuntimeException("Ошибка в ходе востановления заметки с идентификатором", "note.recovered.failed");
+            throw new GdRuntimeException("Ошибка в ходе востановления заметки с идентификатором",
+                    "noteService.recoveredNote.failed");
         }
         SimpleMailMessage message = new SimpleMailMessage();
 
@@ -231,28 +235,29 @@ public class GdNoteService {
             gdNoteHistoryRepository.deleteInAMonth();
         } catch (Exception e) {
             log.error("Ошибка в ходе ежемесячного удаления заметок : {}", e.getMessage());
-            throw new GdRuntimeException("Ошибка в ходе ежемесячного удаления заметок", "note.delete.failed");
+            throw new GdRuntimeException("Ошибка в ходе ежемесячного удаления заметок",
+                    "noteService.deleteNoteAMonthly.failed");
         }
     }
 
     /**
      * Метод для удаления конкретной заметки из БД
      *
-     * @param id
+     * @param id Идентификатор заметки
      */
     public void delete(Long id) {
         try {
             gdNoteRepository.deleteById(id);
         } catch (Exception e) {
             log.error("Ошибка в ходе удаления заметки {} : {}", id, e.getMessage());
-            throw new GdRuntimeException("Ошибка в ходе удаления заметки", "note.delete.failed");
+            throw new GdRuntimeException("Ошибка в ходе удаления заметки", "noteService.deleteNote.failed");
         }
     }
 
     /**
      * Лайк Note
      *
-     * @param id
+     * @param id Идентификатор заметки
      */
     public Long like(Long id) {
         ValueLikes currentLikes = AppStartedListener.mapNoteLikes.get(id);
@@ -267,7 +272,7 @@ public class GdNoteService {
     /**
      * Дизлайк Note
      *
-     * @param id
+     * @param id Идентификатор заметки
      */
     public Long dislike(Long id) {
         ValueLikes currentDislikes = AppStartedListener.mapNoteDislikes.get(id);
