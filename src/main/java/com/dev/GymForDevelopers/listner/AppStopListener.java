@@ -31,16 +31,16 @@ public class AppStopListener implements ApplicationListener<ContextClosedEvent> 
     @Override
     public void onApplicationEvent(@Nullable ContextClosedEvent event) {
         try {
-            List<Long> list = new ArrayList<>();
+            AtomicInteger counter = new AtomicInteger();
             AppStartedListener.mapAnswerLikes.forEach((id, likes) -> {
                         Long endValue = likes.getEndValue();
                         if (likes.notEq()) {
                             gdAnswerRepository.saveLikes(id, endValue);
-                            list.add(id);
+                            counter.getAndIncrement();
                         }
                     }
             );
-            log.info("Количество ответов у которых были обновлены лайки: {}", list.size());
+            log.info("Количество ответов у которых были обновлены лайки: {}", counter);
         } catch (Exception e) {
             log.error("Ошибка при сохранении кэша ответов");
             throw new GdRuntimeException("Ошибка при сохранении кэша ответов", "answer.cache.save.failed");
@@ -58,15 +58,15 @@ public class AppStopListener implements ApplicationListener<ContextClosedEvent> 
             });
             log.info("Количество заметок у которых были обновлены дизлайки: {}", counter);
 
-            List<Long> listDislikes = new ArrayList<>();
+            AtomicInteger counter2 = new AtomicInteger();
             AppStartedListener.mapNoteDislikes.forEach((id, dislikes) -> {
                 Long endValueDislikes = dislikes.getEndValue();
                 if (dislikes.notEq()){
                     gdNoteRepository.saveNoteDislikes(id, endValueDislikes);
-                    listDislikes.add(id);
+                    counter2.getAndIncrement();
                 }
             });
-            log.info("Количество заметок у которых были обновлены дизлайки: {}", listDislikes.size());
+            log.info("Количество заметок у которых были обновлены дизлайки: {}", counter2);
         } catch (Exception e) {
             log.error(e.getMessage());
             throw new GdRuntimeException(e.getMessage(), "note.cache.save.failed");

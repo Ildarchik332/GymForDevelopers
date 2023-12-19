@@ -24,8 +24,8 @@ public class GdAdminController {
         this.gdAdminConverter = gdAdminConverter;
     }
 
-    @PostMapping("/create")
     @ApiOperation("Метод для создания админа")
+    @PostMapping("/create")
     public ResponseEntity<String> create(@RequestBody GdAdminDTO gdadminDTO) {
         gdAdminService.save(gdAdminConverter.convertToEntity(gdadminDTO));
         return ResponseEntity.ok("Админ успешно создан");
