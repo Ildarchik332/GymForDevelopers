@@ -26,7 +26,8 @@ public class GdQuestion {
 
     private String whoAsked;
 
-    @OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
+
+    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
     private List<GdAnswer> answer;
 
 }
